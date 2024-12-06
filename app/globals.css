@@ -23,6 +23,33 @@ body {
   font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   line-height: 1.6;
+  overflow-y: scroll; /* Ensure consistent scrollbar visibility */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-color); /* Track color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); /* Thumb color */
+  border-radius: 10px;
+  border: 3px solid var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--primary-color);
 }
 
 a {
