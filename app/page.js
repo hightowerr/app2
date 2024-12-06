@@ -49,7 +49,7 @@ export default function Home() {
   const getRandomPokemon = () => {
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
     setSelectedPokemon(pokemonList[randomIndex]);
-  };
+  }
 
   return (
     <div className="min-h-screen p-8 bg-opacity-90">
