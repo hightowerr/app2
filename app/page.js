@@ -52,7 +52,17 @@ export default function Home() {
               <li 
                 key={pokemon.id} 
                 onClick={() => handlePokemonClick(pokemon)}
-                className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out cursor-pointer"
+                className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg 
+                           transform transition-all duration-300 ease-in-out 
+                           cursor-pointer 
+                           hover:scale-105 
+                           hover:rotate-1 
+                           hover:shadow-2xl 
+                           hover:bg-gray-700 
+                           active:scale-95 
+                           group 
+                           relative 
+                           overflow-hidden"
               >
                 <img 
                   src={pokemon.sprites.front_default} 
