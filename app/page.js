@@ -57,6 +57,10 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-200 tracking-tight">
           Pokémon Explorer
         </h1>
+      </div>
+    </div>
+  );
+}
 
         {/* Search and Filter Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
