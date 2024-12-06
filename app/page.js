@@ -179,7 +179,7 @@ export default function Home() {
                         <div 
                           className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
                           style={{
-                            width: `${Math.min(stat.base_stat, 255) / 255 * 100}%`,
+                            width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
                             backgroundColor: 
                               stat.base_stat > 200 ? 'green' : 
                               stat.base_stat > 150 ? 'blue' : 
