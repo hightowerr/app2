@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 function PokemonHistory() {
   const [pokemonHistory, setPokemonHistory] = useState([
@@ -37,21 +36,15 @@ function PokemonHistory() {
         <meta name="description" content="Explore the rich history and global impact of the Pokémon franchise" />
       </Head>
       
-      <motion.div 
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-4xl mx-auto"
-      >
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-500">
           The Pokémon Legacy
         </h1>
 
         <div className="grid md:grid-cols-2 gap-6">
           {pokemonHistory.map((history, index) => (
-            <motion.div 
+            <div 
               key={index}
-              whileHover={{ scale: 1.05 }}
               className="bg-gray-800 rounded-xl p-6 shadow-2xl border-2 border-blue-600 hover:border-yellow-400 transition-all duration-300"
             >
               <h2 className="text-2xl font-bold mb-3 text-yellow-400">{history.title}</h2>
@@ -60,10 +53,10 @@ function PokemonHistory() {
                 <span className="text-sm text-blue-300">Year: {history.year}</span>
                 <span className="text-sm text-green-400 italic">Impact: {history.impact}</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
