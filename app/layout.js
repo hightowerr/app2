@@ -23,10 +23,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased}`}
       >
-        <nav>
-          <ul>
+        <nav className="bg-gray-900 text-white p-4">
+          <ul className="flex justify-between">
+            <li className="mr-4">
+              <a href="/" className="text-lg font-bold">Home</a>
+            </li>
             <li>
-              <a href="/pokemon-history">Pokémon History</a>
+              <a href="/pokemon-history" className="text-lg font-bold">Pokémon History</a>
             </li>
           </ul>
         </nav>
