@@ -109,11 +109,24 @@ export default function Home() {
                 <h2 className="text-3xl font-bold capitalize text-center mb-4">
                   {selectedPokemon.name}
                 </h2>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-2">
                   {selectedPokemon.stats.map((stat) => (
-                    <div key={stat.stat.name} className="bg-gray-700 p-2 rounded">
-                      <p className="capitalize text-sm">{stat.stat.name}</p>
-                      <p className="font-bold">{stat.base_stat}</p>
+                    <div key={stat.stat.name} className="flex items-center space-x-2">
+                      <p className="capitalize text-sm w-24">{stat.stat.name}</p>
+                      <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
+                        <div 
+                          className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
+                          style={{
+                            width: `${Math.min(stat.base_stat, 255) / 255 * 100}%`,
+                            backgroundColor: 
+                              stat.base_stat > 200 ? 'green' : 
+                              stat.base_stat > 150 ? 'blue' : 
+                              stat.base_stat > 100 ? 'purple' : 
+                              stat.base_stat > 50 ? 'orange' : 'red'
+                          }}
+                        ></div>
+                      </div>
+                      <p className="w-12 text-right font-bold">{stat.base_stat}</p>
                     </div>
                   ))}
                 </div>
