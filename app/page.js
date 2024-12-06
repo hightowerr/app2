@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchPokemon() {
       try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
         const data = await response.json();
         setPokemonList(data.results);
       } catch (error) {
