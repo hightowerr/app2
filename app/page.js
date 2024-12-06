@@ -57,11 +57,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-200 tracking-tight">
           Pokémon Explorer
         </h1>
-      </div>
-    </div>
-  );
-}
-
+        
         {/* Search and Filter Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
           <input 
@@ -88,120 +84,54 @@ export default function Home() {
             Random Pokémon
           </button>
         </div>
-      {loading ? (
-        <div className="flex flex-col justify-center items-center h-64 space-y-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
-          <p className="text-xl text-gray-300 animate-pulse">Loading Pokémon...</p>
-          <div className="flex space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div 
-                key={i} 
-                className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"
-                style={{animationDelay: `${i * 0.1}s`}}
-              ></div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6">
-            {filteredPokemon.map((pokemon) => (
-              <li 
-                key={pokemon.id} 
-                onClick={() => handlePokemonClick(pokemon)}
-                className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg 
-                           transform transition-all duration-300 ease-in-out 
-                           cursor-pointer 
-                           hover:scale-105 
-                           hover:rotate-1 
-                           hover:shadow-2xl 
-                           hover:bg-gray-700 
-                           active:scale-95 
-                           group 
-                           relative 
-                           overflow-hidden"
-              >
-                <img 
-                  src={pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default} 
-                  alt={pokemon.name} 
-                  loading="lazy"
-                  className="w-full h-auto mx-auto mb-2 object-contain transition-transform duration-300 group-hover:scale-110"
-                />
-                <h2 className="text-2xl font-semibold capitalize text-gray-200 text-center">
-                  {pokemon.name}
-                </h2>
-                <div className="flex justify-center space-x-1 mt-2">
-                  {pokemon.types.map(type => (
-                    <span 
-                      key={type.type.name} 
-                      className={`px-2 py-1 rounded-full text-xs 
-                        ${type.type.name === 'fire' ? 'bg-red-600' : 
-                          type.type.name === 'water' ? 'bg-blue-600' : 
-                          type.type.name === 'grass' ? 'bg-green-600' : 
-                          type.type.name === 'electric' ? 'bg-yellow-500' : 
-                          type.type.name === 'psychic' ? 'bg-pink-600' : 
-                          type.type.name === 'dragon' ? 'bg-purple-600' : 
-                          'bg-gray-600'} 
-                        text-white`}
-                    >
-                      {type.type.name}
-                    </span>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
 
-          {selectedPokemon && (
-            <div 
-              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-              onClick={closeModal}
-            >
-              <div 
-                className="bg-gray-800 p-6 rounded-xl max-w-md w-full mx-4 relative"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button 
-                  onClick={closeModal} 
-                  className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white"
+        {loading ? (
+          <div className="flex flex-col justify-center items-center h-64 space-y-4">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+            <p className="text-xl text-gray-300 animate-pulse">Loading Pokémon...</p>
+            <div className="flex space-x-2">
+              {[...Array(5)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"
+                  style={{animationDelay: `${i * 0.1}s`}}
+                ></div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6">
+              {filteredPokemon.map((pokemon) => (
+                <li 
+                  key={pokemon.id} 
+                  onClick={() => handlePokemonClick(pokemon)}
+                  className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg 
+                             transform transition-all duration-300 ease-in-out 
+                             cursor-pointer 
+                             hover:scale-105 
+                             hover:rotate-1 
+                             hover:shadow-2xl 
+                             hover:bg-gray-700 
+                             active:scale-95 
+                             group 
+                             relative 
+                             overflow-hidden"
                 >
-                  ×
-                </button>
-                <img 
-                  src={selectedPokemon.sprites.front_default} 
-                  alt={selectedPokemon.name} 
-                  className="w-48 h-48 mx-auto"
-                />
-                <h2 className="text-3xl font-bold capitalize text-center mb-4">
-                  {selectedPokemon.name}
-                </h2>
-                <div className="space-y-2">
-                  {selectedPokemon.stats.map((stat) => (
-                    <div key={stat.stat.name} className="flex items-center space-x-2">
-                      <p className="capitalize text-sm w-24">{stat.stat.name}</p>
-                      <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
-                        <div 
-                          className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
-                          style={{
-                            width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
-                            backgroundColor: 
-                              stat.base_stat > 200 ? 'green' : 
-                              stat.base_stat > 150 ? 'blue' : 
-                              stat.base_stat > 100 ? 'purple' : 
-                              stat.base_stat > 50 ? 'orange' : 'red'
-                          }}
-                        ></div>
-                      </div>
-                      <p className="w-12 text-right font-bold">{stat.base_stat}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 space-y-2">
-                  <div className="flex justify-center space-x-2">
-                    {selectedPokemon.types.map(type => (
+                  <img 
+                    src={pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default} 
+                    alt={pokemon.name} 
+                    loading="lazy"
+                    className="w-full h-auto mx-auto mb-2 object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <h2 className="text-2xl font-semibold capitalize text-gray-200 text-center">
+                    {pokemon.name}
+                  </h2>
+                  <div className="flex justify-center space-x-1 mt-2">
+                    {pokemon.types.map(type => (
                       <span 
                         key={type.type.name} 
-                        className={`px-3 py-1 rounded-full text-sm font-semibold 
+                        className={`px-2 py-1 rounded-full text-xs 
                           ${type.type.name === 'fire' ? 'bg-red-600' : 
                             type.type.name === 'water' ? 'bg-blue-600' : 
                             type.type.name === 'grass' ? 'bg-green-600' : 
@@ -215,15 +145,83 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-center text-gray-400">
-                    Height: {selectedPokemon.height / 10}m | Weight: {selectedPokemon.weight / 10}kg
-                  </p>
+                </li>
+              ))}
+            </ul>
+
+            {selectedPokemon && (
+              <div 
+                className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                onClick={closeModal}
+              >
+                <div 
+                  className="bg-gray-800 p-6 rounded-xl max-w-md w-full mx-4 relative"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button 
+                    onClick={closeModal} 
+                    className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white"
+                  >
+                    ×
+                  </button>
+                  <img 
+                    src={selectedPokemon.sprites.front_default} 
+                    alt={selectedPokemon.name} 
+                    className="w-48 h-48 mx-auto"
+                  />
+                  <h2 className="text-3xl font-bold capitalize text-center mb-4">
+                    {selectedPokemon.name}
+                  </h2>
+                  <div className="space-y-2">
+                    {selectedPokemon.stats.map((stat) => (
+                      <div key={stat.stat.name} className="flex items-center space-x-2">
+                        <p className="capitalize text-sm w-24">{stat.stat.name}</p>
+                        <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
+                          <div 
+                            className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
+                            style={{
+                              width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
+                              backgroundColor: 
+                                stat.base_stat > 200 ? 'green' : 
+                                stat.base_stat > 150 ? 'blue' : 
+                                stat.base_stat > 100 ? 'purple' : 
+                                stat.base_stat > 50 ? 'orange' : 'red'
+                            }}
+                          ></div>
+                        </div>
+                        <p className="w-12 text-right font-bold">{stat.base_stat}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex justify-center space-x-2">
+                      {selectedPokemon.types.map(type => (
+                        <span 
+                          key={type.type.name} 
+                          className={`px-3 py-1 rounded-full text-sm font-semibold 
+                            ${type.type.name === 'fire' ? 'bg-red-600' : 
+                              type.type.name === 'water' ? 'bg-blue-600' : 
+                              type.type.name === 'grass' ? 'bg-green-600' : 
+                              type.type.name === 'electric' ? 'bg-yellow-500' : 
+                              type.type.name === 'psychic' ? 'bg-pink-600' : 
+                              type.type.name === 'dragon' ? 'bg-purple-600' : 
+                              'bg-gray-600'} 
+                            text-white`}
+                        >
+                          {type.type.name}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-center text-gray-400">
+                      Height: {selectedPokemon.height / 10}m | Weight: {selectedPokemon.weight / 10}kg
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
