@@ -31,11 +31,11 @@ export default function Home() {
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-white"></div>
         </div>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6">
           {pokemonList.map((pokemon, index) => (
             <li 
               key={index} 
-              className="bg-gray-800 p-5 rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out"
+              className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out"
             >
               <h2 className="text-2xl font-semibold capitalize text-gray-200">
                 {pokemon.name}
