@@ -5,13 +5,20 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
     async function fetchPokemon() {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
         const data = await response.json();
-        setPokemonList(data.results);
+        const pokemonWithDetails = await Promise.all(
+          data.results.map(async (pokemon) => {
+            const detailResponse = await fetch(pokemon.url);
+            return detailResponse.json();
+          })
+        );
+        setPokemonList(pokemonWithDetails);
       } catch (error) {
         console.error("Failed to fetch Pokémon:", error);
       } finally {
@@ -20,6 +27,14 @@ export default function Home() {
     }
     fetchPokemon();
   }, []);
+
+  const handlePokemonClick = (pokemon) => {
+    setSelectedPokemon(pokemon);
+  };
+
+  const closeModal = () => {
+    setSelectedPokemon(null);
+  };
 
   return (
     <div className="min-h-screen p-8 bg-opacity-90">
@@ -31,18 +46,64 @@ export default function Home() {
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-white"></div>
         </div>
       ) : (
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6">
-          {pokemonList.map((pokemon, index) => (
-            <li 
-              key={index} 
-              className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out"
+        <>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6">
+            {pokemonList.map((pokemon) => (
+              <li 
+                key={pokemon.id} 
+                onClick={() => handlePokemonClick(pokemon)}
+                className="bg-gray-800 p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out cursor-pointer"
+              >
+                <img 
+                  src={pokemon.sprites.front_default} 
+                  alt={pokemon.name} 
+                  className="w-full h-auto mx-auto mb-2"
+                />
+                <h2 className="text-2xl font-semibold capitalize text-gray-200 text-center">
+                  {pokemon.name}
+                </h2>
+              </li>
+            ))}
+          </ul>
+
+          {selectedPokemon && (
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+              onClick={closeModal}
             >
-              <h2 className="text-2xl font-semibold capitalize text-gray-200">
-                {pokemon.name}
-              </h2>
-            </li>
-          ))}
-        </ul>
+              <div 
+                className="bg-gray-800 p-6 rounded-xl max-w-md w-full mx-4 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button 
+                  onClick={closeModal} 
+                  className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-white"
+                >
+                  ×
+                </button>
+                <img 
+                  src={selectedPokemon.sprites.front_default} 
+                  alt={selectedPokemon.name} 
+                  className="w-48 h-48 mx-auto"
+                />
+                <h2 className="text-3xl font-bold capitalize text-center mb-4">
+                  {selectedPokemon.name}
+                </h2>
+                <div className="grid grid-cols-2 gap-2">
+                  {selectedPokemon.stats.map((stat) => (
+                    <div key={stat.stat.name} className="bg-gray-700 p-2 rounded">
+                      <p className="capitalize text-sm">{stat.stat.name}</p>
+                      <p className="font-bold">{stat.base_stat}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 text-center">
+                  <p>Types: {selectedPokemon.types.map(type => type.type.name).join(', ')}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
