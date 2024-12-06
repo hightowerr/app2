@@ -165,9 +165,9 @@ export default function Home() {
                     ×
                   </button>
                   <img 
-                    src={selectedPokemon.sprites.front_default} 
+                    src={selectedPokemon.sprites.other['official-artwork'].front_default || selectedPokemon.sprites.front_default} 
                     alt={selectedPokemon.name} 
-                    className="w-48 h-48 mx-auto"
+                    className="w-64 h-64 mx-auto object-contain"
                   />
                   <h2 className="text-3xl font-bold capitalize text-center mb-4">
                     {selectedPokemon.name}
