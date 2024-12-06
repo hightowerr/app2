@@ -42,8 +42,18 @@ export default function Home() {
         Pokémon Explorer
       </h1>
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-white"></div>
+        <div className="flex flex-col justify-center items-center h-64 space-y-4">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+          <p className="text-xl text-gray-300 animate-pulse">Loading Pokémon...</p>
+          <div className="flex space-x-2">
+            {[...Array(5)].map((_, i) => (
+              <div 
+                key={i} 
+                className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"
+                style={{animationDelay: `${i * 0.1}s`}}
+              ></div>
+            ))}
+          </div>
         </div>
       ) : (
         <>
