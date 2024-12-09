@@ -16,10 +16,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
-  title: "Pokémon Explorer",
-  description: "Explore the world of Pokémon",
-};
+// Metadata moved to separate configuration
 
 export default function RootLayout({ children }) {
   useEffect(() => {
