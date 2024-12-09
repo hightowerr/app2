@@ -3,49 +3,49 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Script from 'next/script';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
+  display: "swap",
+  preload: true,
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+  display: "swap",
+  preload: true,
 });
 
 // Metadata moved to separate configuration
 
 export default function RootLayout({ children }) {
-  useEffect(() => {
-    // Dynamically load Bootstrap's JavaScript
-    const loadBootstrapJS = async () => {
-      try {
-        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
-        console.log('Bootstrap JS loaded successfully');
-      } catch (error) {
-        console.error('Failed to load Bootstrap JS', error);
-      }
-    };
-    loadBootstrapJS();
-  }, []);
+  const pathname = usePathname();
 
   return (
     <html lang="en">
       <head>
-        {/* Bootstrap CSS */}
         <link 
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
           rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossOrigin="anonymous"
         />
-        {/* Bootstrap Icons */}
         <link 
           rel="stylesheet" 
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
         />
       </head>
+      <Script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyK/z0sRAQdc8WQ8mYEp3"
+        crossOrigin="anonymous"
+        strategy="lazyOnload"
+      />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container">
@@ -77,13 +77,21 @@ export default function RootLayout({ children }) {
             >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link href="/" className="nav-link" id="homeNavLink">
+                  <Link 
+                    href="/" 
+                    className={`nav-link ${pathname === '/' ? 'active' : ''}`} 
+                    id="homeNavLink"
+                  >
                     <i className="bi bi-house-door me-1"></i>
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/pokemon-history" className="nav-link" id="historyNavLink">
+                  <Link 
+                    href="/pokemon-history" 
+                    className={`nav-link ${pathname === '/pokemon-history' ? 'active' : ''}`} 
+                    id="historyNavLink"
+                  >
                     <i className="bi bi-clock-history me-1"></i>
                     Pokémon History
                   </Link>
