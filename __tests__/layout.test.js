@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RootLayout from '../app/layout';
 
 // Mock next/font/local
@@ -41,5 +41,23 @@ describe('RootLayout', () => {
 
     expect(homeLink).toHaveAttribute('id', 'homeNavLink');
     expect(historyLink).toHaveAttribute('id', 'historyNavLink');
+  });
+
+  it('toggles mobile navigation menu', () => {
+    render(<RootLayout children={<div>Test</div>} />);
+    
+    const toggleButton = screen.getByLabelText(/Toggle navigation/i);
+    const navbarCollapse = screen.getByTestId('navbar-collapse');
+
+    // Initially collapsed
+    expect(navbarCollapse).toHaveClass('collapse');
+
+    // Toggle open
+    fireEvent.click(toggleButton);
+    expect(navbarCollapse).not.toHaveClass('collapse');
+
+    // Toggle closed
+    fireEvent.click(toggleButton);
+    expect(navbarCollapse).toHaveClass('collapse');
   });
 });

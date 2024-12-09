@@ -56,7 +56,11 @@ export default function RootLayout({ children }) {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="navbar-collapse collapse" id="navbarNav">
+            <div 
+              className="navbar-collapse collapse" 
+              id="navbarNav" 
+              data-testid="navbar-collapse"
+            >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
                   <a className="nav-link" href="/" id="homeNavLink">
