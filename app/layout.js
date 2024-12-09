@@ -48,7 +48,8 @@ export default function RootLayout({ children }) {
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyK/z0sRAQdc8WQ8mYEp3"
         crossOrigin="anonymous"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
+        priority
       />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
