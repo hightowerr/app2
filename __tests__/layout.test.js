@@ -1,0 +1,26 @@
+import { render, screen } from '@testing-library/react';
+import RootLayout from '../app/layout';
+
+describe('RootLayout', () => {
+  it('renders navigation links', () => {
+    render(<RootLayout children={<div>Test</div>} />);
+    
+    // Check for Home link
+    const homeLink = screen.getByText(/Home/i);
+    expect(homeLink).toBeInTheDocument();
+    expect(homeLink).toHaveAttribute('href', '/');
+
+    // Check for Pokémon History link
+    const historyLink = screen.getByText(/Pokémon History/i);
+    expect(historyLink).toBeInTheDocument();
+    expect(historyLink).toHaveAttribute('href', '/pokemon-history');
+  });
+
+  it('has responsive navigation', () => {
+    render(<RootLayout children={<div>Test</div>} />);
+    
+    // Check navbar collapse button
+    const toggleButton = screen.getByLabelText(/Toggle navigation/i);
+    expect(toggleButton).toHaveClass('d-lg-none');
+  });
+});
