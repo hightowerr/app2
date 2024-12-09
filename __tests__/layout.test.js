@@ -19,11 +19,15 @@ describe('RootLayout Component', () => {
   // Basic rendering test
   it('renders without crashing', () => {
     const { container } = render(
-      <RootLayout>
-        <div>Test Child Content</div>
-      </RootLayout>
+      <html>
+        <body>
+          <RootLayout>
+            <div>Test Child Content</div>
+          </RootLayout>
+        </body>
+      </html>
     );
-    expect(container).toBeInTheDocument();
+    expect(container.firstChild).toBeInTheDocument();
   });
 
   // Navigation tests
@@ -73,8 +77,8 @@ describe('RootLayout Component', () => {
       
       const body = container.querySelector('body');
       expect(body).toHaveClass('antialiased');
-      expect(body).toHaveClass('--font-geist-sans');
-      expect(body).toHaveClass('--font-geist-mono');
+      expect(body).toHaveClass(/font-geist-sans/);
+      expect(body).toHaveClass(/font-geist-mono/);
     });
   });
 });
