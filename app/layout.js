@@ -79,7 +79,7 @@ export default function RootLayout({ children }) {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div 
-              className="navbar-collapse collapse" 
+              className="navbar-collapse show" 
               id="navbarNav" 
               data-testid="navbar-collapse"
             >
