@@ -61,8 +61,8 @@ export default function RootLayout({ children }) {
               <img 
                 src="/pokeball.png" 
                 alt="Pokémon" 
-                width="30" 
-                height="30" 
+                width="40" 
+                height="40" 
                 className="me-2"
               />
               <span>Pokémon Explorer</span>
