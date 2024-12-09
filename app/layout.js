@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
           <div className="container">
             <Link href="/" className="navbar-brand d-flex align-items-center">
               <img 
-                src="/pokeball.png" 
+                src="/pokeball.svg" 
                 alt="Pokémon" 
                 width="40" 
                 height="40" 
