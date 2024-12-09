@@ -20,16 +20,40 @@ jest.mock('bootstrap/js/dist/collapse', () => {
 // Mock document.createElement to avoid hydration errors
 const originalCreateElement = document.createElement;
 document.createElement = jest.fn((tag) => {
-  if (['html', 'body', 'div', 'nav', 'ul', 'li', 'a', 'button', 'span'].includes(tag)) {
-    return {
-      setAttribute: jest.fn(),
-      appendChild: jest.fn(),
-      setAttribute: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-    };
-  }
-  return originalCreateElement(tag);
+  const mockElement = {
+    tagName: tag.toUpperCase(),
+    nodeType: 1,  // ELEMENT_NODE
+    setAttribute: jest.fn(),
+    getAttribute: jest.fn(),
+    appendChild: jest.fn((child) => {
+      if (child && child.nodeType) return child;
+      throw new Error('Invalid child');
+    }),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    children: [],
+    parentNode: null,
+    style: {},
+    classList: {
+      add: jest.fn(),
+      remove: jest.fn(),
+      contains: jest.fn()
+    },
+    setAttribute: jest.fn(),
+    removeAttribute: jest.fn(),
+  };
+
+  // Simulate basic Node-like behavior
+  mockElement.appendChild.mockImplementation((child) => {
+    if (child && child.nodeType) {
+      mockElement.children.push(child);
+      child.parentNode = mockElement;
+      return child;
+    }
+    throw new Error('Invalid child');
+  });
+
+  return mockElement;
 });
 
 describe('RootLayout', () => {
