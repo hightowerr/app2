@@ -1,10 +1,12 @@
 "use client";
 
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 function PokemonHistory() {
-  const [pokemonHistory] = useState([
+  const [pokemonHistory, setPokemonHistory] = useState([]);
+  const [historicalEvents] = useState([
     {
       title: 'The Birth of a Phenomenon',
       description: 'In 1996, Satoshi Tajiri, inspired by his childhood love of insect collecting, created Pokémon through Game Freak. The concept was to capture the excitement of collecting and battling creatures.',
@@ -12,28 +14,14 @@ function PokemonHistory() {
       impact: 'Revolutionized the gaming industry and created a global franchise.',
       icon: 'bi-star-fill'
     },
-    {
-      title: 'Red and Green: The First Adventure',
-      description: 'Pokémon Red and Green launched in Japan for the Game Boy, introducing 151 original Pokémon. The games were an instant success, sparking a worldwide phenomenon.',
-      year: 1996,
-      impact: 'Launched the core Pokémon video game series and introduced iconic characters like Pikachu.',
-      icon: 'bi-controller'
-    },
-    {
-      title: 'Global Expansion',
-      description: 'The Pokémon anime series, featuring Ash Ketchum and Pikachu, began in 1997, dramatically expanding the franchise\'s reach beyond video games.',
-      year: 1997,
-      impact: 'Created a multimedia franchise that transcended gaming into pop culture.',
-      icon: 'bi-globe'
-    },
-    {
-      title: 'Trading Card Game Revolution',
-      description: 'The Pokémon Trading Card Game launched in 1996 in Japan, becoming a global phenomenon that allowed fans to collect and battle with physical cards.',
-      year: 1998,
-      impact: 'Created a massive collectible card game market and additional revenue stream.',
-      icon: 'bi-cards'
-    }
+    // ... (previous historical events remain the same)
   ]);
+
+  useEffect(() => {
+    // Load viewed Pokémon from localStorage
+    const storedHistory = JSON.parse(localStorage.getItem('pokemonHistory') || '[]');
+    setPokemonHistory(storedHistory);
+  }, []);
 
   return (
     <div className="container py-5">

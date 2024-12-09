@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -32,6 +33,24 @@ export default function Home() {
 
   const handlePokemonClick = (pokemon) => {
     setSelectedPokemon(pokemon);
+    
+    // Store in localStorage
+    const history = JSON.parse(localStorage.getItem('pokemonHistory') || '[]');
+    const existingPokemonIndex = history.findIndex(p => p.id === pokemon.id);
+    
+    if (existingPokemonIndex === -1) {
+      // Add new Pokemon to history, keeping only the last 10
+      const updatedHistory = [
+        { 
+          id: pokemon.id, 
+          name: pokemon.name, 
+          image: pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default 
+        },
+        ...history
+      ].slice(0, 10);
+      
+      localStorage.setItem('pokemonHistory', JSON.stringify(updatedHistory));
+    }
   };
 
   const closeModal = () => {
