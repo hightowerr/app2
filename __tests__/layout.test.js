@@ -32,4 +32,14 @@ describe('RootLayout', () => {
     const toggleButton = screen.getByLabelText(/Toggle navigation/i);
     expect(toggleButton).toHaveClass('d-lg-none');
   });
+
+  it('has navigation links with correct IDs', () => {
+    render(<RootLayout children={<div>Test</div>} />);
+    
+    const homeLink = screen.getByText(/Home/i);
+    const historyLink = screen.getByText(/Pokémon History/i);
+
+    expect(homeLink).toHaveAttribute('id', 'homeNavLink');
+    expect(historyLink).toHaveAttribute('id', 'historyNavLink');
+  });
 });

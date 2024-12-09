@@ -59,13 +59,13 @@ export default function RootLayout({ children }) {
             <div className="navbar-collapse collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                  <a className="nav-link" href="/" id="homeNavLink">
                     <i className="bi bi-house-door me-1"></i>
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/pokemon-history" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                  <a className="nav-link" href="/pokemon-history" id="historyNavLink">
                     <i className="bi bi-clock-history me-1"></i>
                     Pokémon History
                   </a>
