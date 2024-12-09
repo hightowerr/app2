@@ -194,10 +194,11 @@ export default function Home() {
                               style={{
                                 width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
                                 backgroundColor: 
-                                  stat.base_stat > 200 ? 'green' : 
-                                  stat.base_stat > 150 ? 'blue' : 
-                                  stat.base_stat > 100 ? 'purple' : 
-                                  stat.base_stat > 50 ? 'orange' : 'red'
+                                  stat.base_stat > 200 ? '#2ecc71' : 
+                                  stat.base_stat > 150 ? '#3498db' : 
+                                  stat.base_stat > 100 ? '#9b59b6' : 
+                                  stat.base_stat > 50 ? '#f39c12' : '#e74c3c',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
                               }}
                             ></div>
                           </div>
