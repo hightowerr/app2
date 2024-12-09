@@ -12,6 +12,7 @@ const geistSans = localFont({
   weight: "100 900",
   display: "swap",
   preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -19,6 +20,7 @@ const geistMono = localFont({
   weight: "100 900",
   display: "swap",
   preload: true,
+  fallback: ['monospace', 'courier'],
 });
 
 // Metadata moved to separate configuration
@@ -31,16 +33,14 @@ export default function RootLayout({ children }) {
       <head>
         <link 
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-          rel="stylesheet"
+          rel="stylesheet preload"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossOrigin="anonymous"
-          rel="preload"
           as="style"
         />
         <link 
-          rel="stylesheet" 
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-          rel="preload"
+          rel="stylesheet preload"
           as="style"
         />
       </head>
@@ -50,6 +50,9 @@ export default function RootLayout({ children }) {
         crossOrigin="anonymous"
         strategy="afterInteractive"
         priority
+        onError={(e) => {
+          console.error('Bootstrap script failed to load', e);
+        }}
       />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
