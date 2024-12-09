@@ -173,25 +173,38 @@ export default function Home() {
                     {selectedPokemon.name}
                   </h2>
                   <div className="space-y-2">
-                    {selectedPokemon.stats.map((stat) => (
-                      <div key={stat.stat.name} className="flex items-center space-x-2">
-                        <p className="capitalize text-sm w-24">{stat.stat.name}</p>
-                        <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
-                          <div 
-                            className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
-                            style={{
-                              width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
-                              backgroundColor: 
-                                stat.base_stat > 200 ? 'green' : 
-                                stat.base_stat > 150 ? 'blue' : 
-                                stat.base_stat > 100 ? 'purple' : 
-                                stat.base_stat > 50 ? 'orange' : 'red'
-                            }}
-                          ></div>
+                    {selectedPokemon.stats.map((stat) => {
+                      const statNameMap = {
+                        'hp': 'Hit Points',
+                        'attack': 'Attack Power',
+                        'defense': 'Defense',
+                        'special-attack': 'Special Attack',
+                        'special-defense': 'Special Defense',
+                        'speed': 'Speed'
+                      };
+  
+                      const fullStatName = statNameMap[stat.stat.name] || stat.stat.name;
+  
+                      return (
+                        <div key={stat.stat.name} className="flex items-center space-x-2">
+                          <p className="capitalize text-sm w-36">{fullStatName}</p>
+                          <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
+                            <div 
+                              className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
+                              style={{
+                                width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
+                                backgroundColor: 
+                                  stat.base_stat > 200 ? 'green' : 
+                                  stat.base_stat > 150 ? 'blue' : 
+                                  stat.base_stat > 100 ? 'purple' : 
+                                  stat.base_stat > 50 ? 'orange' : 'red'
+                              }}
+                            ></div>
+                          </div>
+                          <p className="w-12 text-right font-bold">{stat.base_stat}</p>
                         </div>
-                        <p className="w-12 text-right font-bold">{stat.base_stat}</p>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-center space-x-2">
