@@ -1,6 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import RootLayout from '../app/layout';
 
+// Mock next/font/local
+jest.mock('next/font/local', () => ({
+  __esModule: true,
+  default: () => ({
+    variable: '--font-test-sans',
+    className: 'test-font',
+  }),
+}));
+
 describe('RootLayout', () => {
   it('renders navigation links', () => {
     render(<RootLayout children={<div>Test</div>} />);
