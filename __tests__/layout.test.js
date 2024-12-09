@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import RootLayout from '../app/layout';
+import '@testing-library/jest-dom';
 
-// Mock next/font/local
+// Mock dependencies
 jest.mock('next/font/local', () => ({
   __esModule: true,
   default: () => ({
@@ -10,83 +11,70 @@ jest.mock('next/font/local', () => ({
   }),
 }));
 
-// Mock Bootstrap's collapse functionality
-jest.mock('bootstrap/js/dist/collapse', () => {
-  return jest.fn().mockImplementation(() => ({
-    toggle: jest.fn(),
-  }));
-});
+jest.mock('next/navigation', () => ({
+  usePathname: () => '/',
+}));
 
-// Mock document.createElement to avoid hydration errors
-const originalCreateElement = document.createElement;
-document.createElement = jest.fn((tag) => {
-  const mockElement = {
-    tagName: tag.toUpperCase(),
-    nodeType: 1,  // ELEMENT_NODE
-    setAttribute: jest.fn(),
-    getAttribute: jest.fn(),
-    appendChild: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    children: [],
-    parentNode: null,
-    style: {},
-    classList: {
-      add: jest.fn(),
-      remove: jest.fn(),
-      contains: jest.fn()
-    },
-    setAttribute: jest.fn(),
-    removeAttribute: jest.fn(),
-  };
-
-  // More flexible appendChild implementation
-  mockElement.appendChild.mockImplementation((child) => {
-    // Accept any object as a child
-    mockElement.children.push(child);
-    if (child && typeof child === 'object') {
-      child.parentNode = mockElement;
-    }
-    return child;
-  });
-
-  return mockElement;
-});
-
-describe('RootLayout', () => {
-  it('renders navigation links', () => {
+describe('RootLayout Component', () => {
+  // Basic rendering test
+  it('renders without crashing', () => {
     const { container } = render(
       <RootLayout>
-        <div>Test Content</div>
+        <div>Test Child Content</div>
       </RootLayout>
     );
-    
-    // Check for Home link
-    const homeLink = screen.getByText(/Home/i);
-    expect(homeLink).toBeInTheDocument();
-    expect(homeLink).toHaveAttribute('href', '/');
-
-    // Check for Pokémon History link
-    const historyLink = screen.getByText(/Pokémon History/i);
-    expect(historyLink).toBeInTheDocument();
-    expect(historyLink).toHaveAttribute('href', '/pokemon-history');
+    expect(container).toBeInTheDocument();
   });
 
-  it('has responsive navigation', () => {
-    render(<RootLayout>Test Content</RootLayout>);
-    
-    // Check navbar collapse button
-    const toggleButton = screen.getByLabelText(/Toggle navigation/i);
-    expect(toggleButton).toHaveClass('d-lg-none');
+  // Navigation tests
+  describe('Navigation', () => {
+    beforeEach(() => {
+      render(<RootLayout>Test Content</RootLayout>);
+    });
+
+    it('renders navigation links', () => {
+      const homeLink = screen.getByText(/Home/i);
+      const historyLink = screen.getByText(/Pokémon History/i);
+
+      expect(homeLink).toBeInTheDocument();
+      expect(historyLink).toBeInTheDocument();
+    });
+
+    it('has correct link attributes', () => {
+      const homeLink = screen.getByText(/Home/i);
+      const historyLink = screen.getByText(/Pokémon History/i);
+
+      expect(homeLink).toHaveAttribute('href', '/');
+      expect(historyLink).toHaveAttribute('href', '/pokemon-history');
+      expect(homeLink).toHaveAttribute('id', 'homeNavLink');
+      expect(historyLink).toHaveAttribute('id', 'historyNavLink');
+    });
   });
 
-  it('has navigation links with correct IDs', () => {
-    render(<RootLayout>Test Content</RootLayout>);
-    
-    const homeLink = screen.getByText(/Home/i);
-    const historyLink = screen.getByText(/Pokémon History/i);
+  // Accessibility tests
+  describe('Accessibility', () => {
+    it('has responsive navbar toggle', () => {
+      render(<RootLayout>Test Content</RootLayout>);
+      
+      const toggleButton = screen.getByLabelText(/Toggle navigation/i);
+      expect(toggleButton).toHaveClass('navbar-toggler');
+      expect(toggleButton).toHaveAttribute('data-bs-toggle', 'collapse');
+    });
+  });
 
-    expect(homeLink).toHaveAttribute('id', 'homeNavLink');
-    expect(historyLink).toHaveAttribute('id', 'historyNavLink');
+  // Font and styling tests
+  describe('Styling', () => {
+    it('applies font classes', () => {
+      const { container } = render(
+        <RootLayout>
+          <div>Test Content</div>
+        </RootLayout>
+      );
+      
+      const body = container.querySelector('body');
+      expect(body).toHaveClass('antialiased');
+      expect(body).toHaveClass('--font-geist-sans');
+      expect(body).toHaveClass('--font-geist-mono');
+    });
   });
 });
