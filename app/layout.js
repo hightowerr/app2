@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
                 <li className="nav-item">
                   <a className="nav-link" href="/pokemon-history">
                     <i className="bi bi-clock-history me-1"></i>
-                    History
+                    Pokémon History
                   </a>
                 </li>
               </ul>
