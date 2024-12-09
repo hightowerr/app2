@@ -169,9 +169,27 @@ export default function Home() {
                     alt={selectedPokemon.name} 
                     className="w-64 h-64 mx-auto object-contain"
                   />
-                  <h2 className="text-3xl font-bold capitalize text-center mb-4">
+                  <h2 className="text-5xl font-extrabold capitalize text-center mb-6 text-white tracking-tight drop-shadow-lg">
                     {selectedPokemon.name}
                   </h2>
+                  <div className="flex justify-center space-x-3 mb-6">
+                    {selectedPokemon.types.map(type => (
+                      <span 
+                        key={type.type.name} 
+                        className={`px-4 py-2 rounded-full text-md font-bold uppercase tracking-wider 
+                          ${type.type.name === 'fire' ? 'bg-red-600' : 
+                            type.type.name === 'water' ? 'bg-blue-600' : 
+                            type.type.name === 'grass' ? 'bg-green-600' : 
+                            type.type.name === 'electric' ? 'bg-yellow-500' : 
+                            type.type.name === 'psychic' ? 'bg-pink-600' : 
+                            type.type.name === 'dragon' ? 'bg-purple-600' : 
+                            'bg-gray-600'} 
+                          text-white shadow-md transform transition-all hover:scale-105`}
+                      >
+                        {type.type.name}
+                      </span>
+                    ))}
+                  </div>
                   <div className="space-y-2">
                     {selectedPokemon.stats.map((stat) => {
                       const statNameMap = {
