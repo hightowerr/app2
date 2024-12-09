@@ -235,7 +235,9 @@ export default function Home() {
                               Max 255
                             </div>
                           </div>
-                          <p className="w-12 text-right font-bold">{stat.base_stat}</p>
+                          <p className="w-16 text-right font-bold text-white bg-gray-700 px-2 py-1 rounded-md shadow-sm">
+                            {stat.base_stat}
+                          </p>
                         </div>
                       );
                     })}
