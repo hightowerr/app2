@@ -56,16 +56,16 @@ export default function RootLayout({ children }) {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="navbar-collapse" id="navbarNav">
+            <div className="navbar-collapse collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
+                  <a className="nav-link" href="/" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <i className="bi bi-house-door me-1"></i>
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/pokemon-history">
+                  <a className="nav-link" href="/pokemon-history" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <i className="bi bi-clock-history me-1"></i>
                     Pokémon History
                   </a>
