@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Link from 'next/link';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container">
-            <a className="navbar-brand d-flex align-items-center" href="/">
+            <Link href="/" className="navbar-brand d-flex align-items-center">
               <img 
                 src="/pokeball.png" 
                 alt="Pokémon" 
@@ -44,7 +45,7 @@ export default function RootLayout({ children }) {
                 className="me-2"
               />
               <span>Pokémon Explorer</span>
-            </a>
+            </Link>
             <button 
               className="navbar-toggler d-lg-none" 
               type="button" 
@@ -63,16 +64,16 @@ export default function RootLayout({ children }) {
             >
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/" id="homeNavLink">
+                  <Link href="/" className="nav-link" id="homeNavLink">
                     <i className="bi bi-house-door me-1"></i>
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/pokemon-history" id="historyNavLink">
+                  <Link href="/pokemon-history" className="nav-link" id="historyNavLink">
                     <i className="bi bi-clock-history me-1"></i>
                     Pokémon History
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
