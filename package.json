@@ -19,7 +19,14 @@
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
     "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { "presets": ["next/babel"] }]
+      "^.+\\.(js|jsx|ts|tsx)$": [
+        "babel-jest",
+        {
+          "presets": [
+            "next/babel"
+          ]
+        }
+      ]
     },
     "transformIgnorePatterns": [
       "/node_modules/",
@@ -27,16 +34,20 @@
     ]
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^15.0.4",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "next": "15.0.4",
+    "next": "^15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "babel-jest": "^29.7.0",
+    "babel-preset-next": "^1.4.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "identity-obj-proxy": "^3.0.0",
