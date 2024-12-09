@@ -17,9 +17,25 @@ jest.mock('bootstrap/js/dist/collapse', () => {
   }));
 });
 
+// Mock document.createElement to avoid hydration errors
+const originalCreateElement = document.createElement;
+document.createElement = jest.fn((tag) => {
+  if (tag === 'html') {
+    return {
+      setAttribute: jest.fn(),
+      appendChild: jest.fn(),
+    };
+  }
+  return originalCreateElement(tag);
+});
+
 describe('RootLayout', () => {
   it('renders navigation links', () => {
-    render(<RootLayout>Test Content</RootLayout>);
+    const { container } = render(
+      <RootLayout>
+        <div>Test Content</div>
+      </RootLayout>
+    );
     
     // Check for Home link
     const homeLink = screen.getByText(/Home/i);
