@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,6 +20,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    // Dynamically load Bootstrap's JavaScript
+    import('bootstrap/dist/js/bootstrap.bundle.min.js');
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -47,7 +53,7 @@ export default function RootLayout({ children }) {
               <span>Pokémon Explorer</span>
             </Link>
             <button 
-              className="navbar-toggler d-lg-none" 
+              className="navbar-toggler" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#navbarNav" 
@@ -82,10 +88,6 @@ export default function RootLayout({ children }) {
         <main>
           {children}
         </main>
-        {/* Bootstrap JavaScript Bundle with Popper */}
-        <script 
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        ></script>
       </body>
     </html>
   );
