@@ -196,8 +196,8 @@ export default function Home() {
                         'hp': 'Hit Points',
                         'attack': 'Attack Power',
                         'defense': 'Defense',
-                        'special-attack': 'Special Attack',
-                        'special-defense': 'Special Defense',
+                        'special-attack': 'Special-Attack',
+                        'special-defense': 'Special-Defense',
                         'speed': 'Speed'
                       };
   
@@ -205,7 +205,7 @@ export default function Home() {
   
                       return (
                         <div key={stat.stat.name} className="flex items-center space-x-2">
-                          <p className="capitalize text-sm w-36 stat-label">{fullStatName}</p>
+                          <p className="capitalize text-sm w-48 stat-label">{fullStatName}</p>
                           <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
                             <div 
                               className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
