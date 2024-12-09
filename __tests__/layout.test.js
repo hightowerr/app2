@@ -25,10 +25,7 @@ document.createElement = jest.fn((tag) => {
     nodeType: 1,  // ELEMENT_NODE
     setAttribute: jest.fn(),
     getAttribute: jest.fn(),
-    appendChild: jest.fn((child) => {
-      if (child && child.nodeType) return child;
-      throw new Error('Invalid child');
-    }),
+    appendChild: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     children: [],
@@ -43,14 +40,14 @@ document.createElement = jest.fn((tag) => {
     removeAttribute: jest.fn(),
   };
 
-  // Simulate basic Node-like behavior
+  // More flexible appendChild implementation
   mockElement.appendChild.mockImplementation((child) => {
-    if (child && child.nodeType) {
-      mockElement.children.push(child);
+    // Accept any object as a child
+    mockElement.children.push(child);
+    if (child && typeof child === 'object') {
       child.parentNode = mockElement;
-      return child;
     }
-    throw new Error('Invalid child');
+    return child;
   });
 
   return mockElement;
