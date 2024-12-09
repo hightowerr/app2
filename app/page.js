@@ -206,9 +206,15 @@ export default function Home() {
                       return (
                         <div key={stat.stat.name} className="flex items-center space-x-2">
                           <p className="capitalize text-sm w-48 stat-label">{fullStatName}</p>
-                          <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden">
+                          <div className="flex-grow bg-gray-700 rounded-full h-4 overflow-hidden relative">
                             <div 
-                              className="h-full bg-blue-500 rounded-full transition-all duration-500 ease-out"
+                              className="absolute inset-0 bg-gray-600 opacity-30"
+                              style={{
+                                width: '100%'
+                              }}
+                            ></div>
+                            <div 
+                              className="h-full rounded-full transition-all duration-500 ease-out absolute"
                               style={{
                                 width: `${Math.min(stat.base_stat, 255) /255 * 100}%`,
                                 backgroundColor: 
@@ -219,6 +225,15 @@ export default function Home() {
                                 boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
                               }}
                             ></div>
+                            <div 
+                              className="absolute inset-0 flex items-center justify-end pr-1 text-xs text-white opacity-50"
+                              style={{
+                                backgroundImage: 'linear-gradient(to right, transparent 90%, rgba(255,255,255,0.1) 90%)',
+                                backgroundSize: '10% 100%'
+                              }}
+                            >
+                              Max 255
+                            </div>
                           </div>
                           <p className="w-12 text-right font-bold">{stat.base_stat}</p>
                         </div>
