@@ -21,7 +21,15 @@ const geistMono = localFont({
 export default function RootLayout({ children }) {
   useEffect(() => {
     // Dynamically load Bootstrap's JavaScript
-    import('bootstrap/dist/js/bootstrap.bundle.min.js');
+    const loadBootstrapJS = async () => {
+      try {
+        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+        console.log('Bootstrap JS loaded successfully');
+      } catch (error) {
+        console.error('Failed to load Bootstrap JS', error);
+      }
+    };
+    loadBootstrapJS();
   }, []);
 
   return (
