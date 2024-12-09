@@ -43,32 +43,62 @@ function PokemonHistory() {
         </div>
       </div>
 
-      <div className="row g-4">
-        {pokemonHistory.map((history, index) => (
-          <div key={index} className="col-md-6">
-            <div className="card h-100 bg-dark text-light border-secondary hover-card">
-              <div className="card-body">
-                <div className="d-flex align-items-center mb-3">
-                  <i className={`bi ${history.icon} fs-3 me-3 text-primary`}></i>
-                  <h2 className="card-title h4 mb-0">{history.title}</h2>
+      <div className="container py-5">
+        {/* Viewed Pokémon Section */}
+        {pokemonHistory.length > 0 && (
+          <div className="mb-5">
+            <h2 className="display-6 text-light text-center mb-4">
+              Recently Viewed Pokémon
+            </h2>
+            <div className="row row-cols-2 row-cols-md-4 g-4">
+              {pokemonHistory.map((pokemon, index) => (
+                <div key={pokemon.id} className="col">
+                  <Link href={`/pokemon/${pokemon.id}`} className="text-decoration-none">
+                    <div className="card bg-dark text-light h-100 hover-card">
+                      <img 
+                        src={pokemon.image} 
+                        alt={pokemon.name} 
+                        className="card-img-top p-3 bg-secondary bg-opacity-10"
+                      />
+                      <div className="card-body text-center">
+                        <h5 className="card-title text-capitalize">{pokemon.name}</h5>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-                <p className="card-text text-light-emphasis mb-4">
-                  {history.description}
-                </p>
-                <div className="d-flex justify-content-between align-items-center mt-auto">
-                  <span className="badge bg-primary rounded-pill">
-                    <i className="bi bi-calendar-event me-1"></i>
-                    {history.year}
-                  </span>
-                  <small className="text-light-emphasis fst-italic">
-                    <i className="bi bi-lightning me-1"></i>
-                    {history.impact}
-                  </small>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Historical Events Section */}
+        <div className="row g-4">
+          {historicalEvents.map((history, index) => (
+            <div key={index} className="col-md-6">
+              <div className="card h-100 bg-dark text-light border-secondary hover-card">
+                <div className="card-body">
+                  <div className="d-flex align-items-center mb-3">
+                    <i className={`bi ${history.icon} fs-3 me-3 text-primary`}></i>
+                    <h2 className="card-title h4 mb-0">{history.title}</h2>
+                  </div>
+                  <p className="card-text text-light-emphasis mb-4">
+                    {history.description}
+                  </p>
+                  <div className="d-flex justify-content-between align-items-center mt-auto">
+                    <span className="badge bg-primary rounded-pill">
+                      <i className="bi bi-calendar-event me-1"></i>
+                      {history.year}
+                    </span>
+                    <small className="text-light-emphasis fst-italic">
+                      <i className="bi bi-lightning me-1"></i>
+                      {history.impact}
+                    </small>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
