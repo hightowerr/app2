@@ -20,10 +20,13 @@ jest.mock('bootstrap/js/dist/collapse', () => {
 // Mock document.createElement to avoid hydration errors
 const originalCreateElement = document.createElement;
 document.createElement = jest.fn((tag) => {
-  if (tag === 'html') {
+  if (['html', 'body', 'div', 'nav', 'ul', 'li', 'a', 'button', 'span'].includes(tag)) {
     return {
       setAttribute: jest.fn(),
       appendChild: jest.fn(),
+      setAttribute: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
     };
   }
   return originalCreateElement(tag);
